@@ -11,10 +11,10 @@ const Twit = require("twit");
 //Exporting API call to new file
 //https://www.youtube.com/watch?v=ZbtZ_79UmjI&t=309s
 
-const apikey = "xVt2eACACWv21mUWp5foZYRtL";
-const apiSecretKey = "fwF7EUqWmETr28erRN7VOuDzzq1Xz0EnDZtlIfrdMyBEAhTNzX";
-const accessToken = "1048642446240956416-7cPP5ZlGp5Xn9pffLn6MMcvZ7bo9pB";
-const accessTokenSecret = "NjGVLNi8lXDR4TITJJPKjfmFnVDwK3sKSKFHVEUk0PHTC";
+const apikey = "";
+const apiSecretKey = "";
+const accessToken = "";
+const accessTokenSecret = "";
 
 const TwitterCall = (TwitterData) => {
   let T = new Twit({
