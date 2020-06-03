@@ -1,28 +1,21 @@
-const request = require('request');
+const { JSDOM } = require("jsdom");
+const { window } = new JSDOM("");
+const $ = require("jquery")(window);
 
-let url = "https://www.reddit.com/r/COVID19/hot.json?limit=10"
+const RedditCall = (RedditData) => {
+    $.ajax({
+        type: "GET",
+        url: "https://www.reddit.com/r/COVID19/hot.json",
+        data: {
+           limit: 20, 
+        },
+        success: function (data) {
+            return RedditData(data);
+        },
+        error: function (response) {
+            return RedditData(err);
+        },
+    });
+};
 
-request.get(url, (err, response, body) =>
-{
-    if (err) {
-        console.log(err);
-        return;
-    }
-    const jsoned = JSON.parse(body);
-
-    //this line expands the children
-    const children_json = JSON.parse(body).data;
-
-    const posts = children_json.children;
-
-    for (let i = 0; i < posts.length; i++) {
-        // this is how you get the titles
-        console.log("Title:" + posts[i].data.title);
-
-        //this get just the subreddit permalink
-        console.log("URL:" + "https://reddit.com" + posts[i].data.permalink)
-    
-    // need to figure out how we want to display the reddit info
-    };
-
-});
+module.exports.RedditAPI = RedditCall;

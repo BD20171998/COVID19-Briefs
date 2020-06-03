@@ -1,11 +1,12 @@
 const express = require("express");
-const TwitterAPICall = require("./Twitter/twitterapi");
+const TwitterAPICall = require("./Twitter/twitterapi_v2");
 const YouTubeAPICall = require("./YouTube/youtube");
+const RedditAPICall = require("./RedditAPI/redditapi");
 const http = require("http");
 
 const app = express();
 
-//Testing output on http://localhost:5501/youtube
+// //Testing output on http://localhost:5501/youtube
 app.get("/youtube", (req, res) => {
   //See https://stackoverflow.com/questions/47523265/jquery-ajax-no-access-control-allow-origin-header-is-present-on-the-requested
   res.header("Access-Control-Allow-Origin", "*");
@@ -15,6 +16,18 @@ app.get("/youtube", (req, res) => {
   );
   YouTubeAPICall.YouTubeAPI(function (response) {
     res.send(JSON.stringify(response));
+  });
+});
+
+app.get("/reddit", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  RedditAPICall.RedditAPI(function (response) {
+    res.send(JSON.stringify(response));
+
   });
 });
 
