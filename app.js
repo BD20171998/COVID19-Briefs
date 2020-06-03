@@ -1,23 +1,29 @@
 const express = require("express");
 const TwitterAPICall = require("./Twitter/twitterapi");
+const YouTubeAPICall = require("./YouTube/youtubeapicopy");
 const http = require("http");
+
 const app = express();
 
-app
-  .get("/youtube", (req, res) => {
-    res.send("Youtube video page");
-  })
-  .listen(3000);
+//Testing output on http://localhost:5501/youtube
+app.get("/youtube", (req, res) => {
+  //See https://stackoverflow.com/questions/47523265/jquery-ajax-no-access-control-allow-origin-header-is-present-on-the-requested
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  YouTubeAPICall.YouTubeAPI(function (response) {
+    res.send(JSON.stringify(response));
+  });
+});
 
-app
-  .get("/newsapi", (req, res) => {
-    res.send("News API page");
-  })
-  .listen(3001);
+app.listen(5501, () => {
+  console.log("Server app now running on port 5501");
+});
 
 //Testing output on http://127.0.0.1:3002/twitter
-//https://twitter.com/screen-name/status/id_str-value
-//https://stackoverflow.com/questions/41090108/how-to-embed-a-tweet-on-a-page-if-i-only-know-its-id
+//View tweet format for html: https://twitter.com/screen-name/status/id_str-value
 http
   .createServer((req, res) => {
     if (req.url === "/twitter") {
