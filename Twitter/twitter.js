@@ -12,7 +12,7 @@ let T = new Twit({
   access_token_secret: accessTokenSecret,
 });
 
-function bob() {
+const TwitterCall = (TwitterData) => {
   T.get("search/tweets", { q: "covid19", count: 10 })
     .then((rawData) => {
       let urlList = [];
@@ -28,27 +28,26 @@ function bob() {
     })
     .then((urlList) => {
       let blocks = TwitterHTML(urlList);
-      blocks[0].then((data) => console.log(data));
+
+      return blocks;
     })
+    .then((data) => TwitterData(data))
 
     .catch((err) => console.log(err));
-}
+};
 
-function TwitterHTML(urls) {
+async function TwitterHTML(urls) {
   let TwitterHTMLs = [];
 
   for (let j = 0; j < urls.length; j++) {
-    TwitterHTMLs.push(
-      T.get("https://publish.twitter.com/oembed", { url: urls[j] })
-        .then((rawData) => {
-          return rawData.data.html;
-        })
-        .catch((err) => console.log(err))
-    );
+    await T.get("https://publish.twitter.com/oembed", { url: urls[j] })
+      .then((rawData) => {
+        TwitterHTMLs.push(rawData.data.html);
+      })
+
+      .catch((err) => console.log(err));
   }
   return TwitterHTMLs;
-  //TwitterHTMLs[0].then((data) => console.log(data));
 }
 
-bob(); //prints first html block retreived from 2nd endpoint
-//module.exports.TwitterAPI = TwitterCall;
+module.exports.TwitterAPI = TwitterCall;
