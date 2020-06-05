@@ -1,7 +1,9 @@
 const express = require("express");
-const TwitterAPICall = require("./Twitter/twitterapi_v2");
+const axios = require("axios");
+const TwitterAPICall = require("./Twitter/twitter");
 const YouTubeAPICall = require("./YouTube/youtube");
 const RedditAPICall = require("./RedditAPI/redditapi");
+const NewsAPICall = require("./NewsAPI/newsapi");
 const http = require("http");
 
 const app = express();
@@ -27,24 +29,40 @@ app.get("/reddit", (req, res) => {
   );
   RedditAPICall.RedditAPI(function (response) {
     res.send(JSON.stringify(response));
-
   });
 });
+
+app.get("/newsapi", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=fb1aac01c63a443ca9c80a7c1a750ea9').then(function (response){
+    var key = response["data"]["articles"]
+    res.send(JSON.stringify(key));
+
+    // var articles = response["data"]["articles"];
+    // res.write(JSON.stringify(articles));
+
+    // res.end();
+  })
+  });
+
+  app.get("/twitter", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    TwitterAPICall.TwitterAPI(function (response) {
+      //res.send translates html automatically
+      res.write(JSON.stringify(response));
+      res.end();
+    });
+  }); 
+
 
 app.listen(5501, () => {
   console.log("Server app now running on port 5501");
 });
-
-//Testing output on http://127.0.0.1:3002/twitter
-//View tweet format for html: https://twitter.com/screen-name/status/id_str-value
-http
-  .createServer((req, res) => {
-    if (req.url === "/twitter") {
-      TwitterAPICall.TwitterAPI(function (response) {
-        console.log(JSON.stringify(response));
-        res.write(JSON.stringify(response));
-        res.end();
-      });
-    }
-  })
-  .listen(3002);
