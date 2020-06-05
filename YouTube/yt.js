@@ -1,11 +1,11 @@
 $(document).ready(() => {
   $("#search-button").click(() => {
-    let ytquery = $("#query").val();
-
+    $(".videoWrapper").remove();
     $.ajax({
       url: "http://localhost:5501/youtube",
       type: "GET",
       dataType: "json",
+
       success: (data) => {
         embedVideo(data);
       },
@@ -28,10 +28,4 @@ function addVideo(value) {
   <iframe width="560" height="349" src="${srcVid}"></iframe>
   </div>
   `;
-}
-
-function delVideo(data) {
-  $.each(data.items, function (i, value) {
-    $("#results").remove();
-  });
 }
