@@ -3,62 +3,10 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="st.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
 
-    * {
-        box-sizing: border-box;
-    }
+<title>COVID19 Summary Stats by Country</title>
 
-    /* Create a column layout with Flexbox */
-    .row {
-        display: flex;
-    }
-
-    /* Left column (menu) */
-    .left {
-        flex: 35%;
-        padding: 15px 0;
-    }
-
-    .left h2 {
-        padding-left: 8px;
-    }
-
-    /* Right column (page content) */
-    .right {
-        flex: 65%;
-        padding: 15px;
-    }
-
-    /* Style the search box */
-    #mySearch {
-        width: 100%;
-        font-size: 18px;
-        padding: 11px;
-        border: 1px solid #ddd;
-    }
-
-    /* Style the navigation menu inside the left column */
-    #myMenu {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    #myMenu li a {
-        padding: 12px;
-        text-decoration: none;
-        color: black;
-        display: block
-    }
-
-    #myMenu li a:hover {
-        background-color: #eee;
-    }
-</style>
+<link rel="stylesheet" href="stats.css" />
 
 <body>
     <h2>Search Menu</h2>
@@ -69,9 +17,37 @@
             <h2>Menu</h2>
             <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
 
-            <ul id="myMenu">
+            <ul id="myMenu"></ul>
+        </div>
 
-            </ul>
+        <div class="right" style="background-color:#6933FF;">
+            <h2>Summary Stats by Country</h2>
+            <p>API cortesy of <a href="https://covid19api.com">COVID19API.com</a>. Data is sourced from
+                <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>
+                Creator/maintainer of http://covid19api.com - <a href="https://twitter.com/ksredelinghuys">Kyle
+                    Redelinghuys</a></p>
+            <ul id="CData"></ul>
+        </div>
+
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="countryModal1"></p>
+                <br>
+                <p id="countryModal2"></p>
+                <p id="countryModal3"></p>
+                <p id="countryModal4"></p>
+                <p id="countryModal5"></p>
+                <p id="countryModal6"></p>
+                <p id="countryModal7"></p>
+
+            </div>
+
+        </div>
+    </div>
 </body>
 
 
