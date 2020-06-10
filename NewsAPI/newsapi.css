@@ -1,0 +1,37 @@
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+#example3 {
+    border: 5px solid;
+    padding: 5px;
+    box-shadow: 5px 10px 18px blue;
+    border-width: 5px;
+    border-style: inset;
+    background-color: white;
+}
+
+#background width: 950px;{
+height: 1050px;
+line-height: 3em;
+overflow: scroll;
+padding: 5px;
+background-color: blue;
+color: #000000;
+scrollbar-base-color: #DEBB07;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: blue;
+    color: white;
+    line-height: 50px;
+    align-items: center;
+   
+ }

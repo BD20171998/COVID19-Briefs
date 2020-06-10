@@ -3,11 +3,16 @@ const axios = require("axios");
 const TwitterAPICall = require("./Twitter/twitter");
 const YouTubeAPICall = require("./YouTube/youtube");
 const RedditAPICall = require("./RedditAPI/redditapi");
-//const NewsAPICall = require("./NewsAPI/newsapi");
+const NewsAPICall = require("./NewsAPI/newsapi");
 const StatsAPICall = require("./Covid19stats/stats");
-const http = require("http");
+//const http = require("http");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+//see https://stackoverflow.com/questions/38294730/express-js-post-req-body-empty
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Testing output on http://localhost:5501/youtube
 app.get("/youtube", (req, res) => {
@@ -17,8 +22,9 @@ app.get("/youtube", (req, res) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
+
   YouTubeAPICall.YouTubeAPI(function (response) {
-    res.send(JSON.stringify(response));
+    res.write(JSON.stringify(response));
   });
 });
 
@@ -39,19 +45,11 @@ app.get("/newsapi", (req, res) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  axios
-    .get(
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=fb1aac01c63a443ca9c80a7c1a750ea9"
-    )
-    .then(function (response) {
-      var key = response["data"]["articles"];
-      res.send(JSON.stringify(key));
-
-      // var articles = response["data"]["articles"];
-      // res.write(JSON.stringify(articles));
-
-      // res.end();
-    });
+  NewsAPICall.NewsAPI(function (response) {
+    console.log(response);
+    res.write(JSON.stringify(response));
+    res.end();
+  });
 });
 
 app.get("/twitter", (req, res) => {
@@ -78,6 +76,18 @@ app.get("/stats", (req, res) => {
     res.end();
   });
 });
+
+//runs fine on 5501 but other GET does not run then
+// app.post("/youtube-submit", (req, res) => {
+//   let q = req.body.myquery;
+//   console.log("POST ran");
+//https://stackoverflow.com/questions/3922994/share-variables-between-files-in-node-js
+// exports.q = q;
+
+//res.send('You sent the name "' + q + '".');
+// res.end();
+//res.redirect("http://localhost:5502/youtube.html");
+// });
 
 app.listen(5501, () => {
   console.log("Server app now running on port 5501");
