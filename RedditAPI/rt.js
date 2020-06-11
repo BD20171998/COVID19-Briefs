@@ -1,57 +1,37 @@
-$.ajax({
-    url: "http://localhost:5501/reddit",
-    type: "GET",
-    dataType: "json",
-    success: (data) => {
-      displayLink(data);
-    },
+$(document).ready(() => {
+  $("#search-button").click(() => {
+    $("div#demoObject").remove();
+    $.ajax({
+      url: "http://localhost:5501/reddit-submit",
+      type: "POST",
+      dataType: "json",
+      data: { query: document.querySelector("#query").value },
+      success: () => {},
+    });
+
+    $.ajax({
+      url: "http://localhost:5501/reddit",
+      type: "GET",
+      dataType: "json",
+
+      success: (data) => {
+        displayLink(data);
+      },
+    });
+  });
 });
 
-// data.children.data.url 
 function displayLink(data) {
-    $.each(data.data.children, function (i, value) {
-      $("#results").append(value.data.url);
-    });
-  };
-
-
-//   const key = JSON.parse(body);
-//   // console.log(key);
-
-//   console.log(key.data.children[0].data.url);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var request = new XMLHttpRequest();
-// request.open('GET', 'https://www.reddit.com/r/COVID19/hot.json?limit=10');
-
-// request.onload = function() {
-// 	var response = request.response;
-//     var parsedData = JSON.parse(response).data;
-//     var posts = parsedData.children;
-//     // var name = posts[1].data.title
-
-//     for (let i = 0; i < posts.length; i++) {
-//         var name = posts[i].data.title;
-//         var products = document.createElement('li');
-//         products.innerHTML = name;
-//         document.body.appendChild(products);
-//     }
-
-// 	// var products = document.createElement('li');
-// 	// products.innerHTML = name;
-// 	// document.body.appendChild(products);
-// };
+  $.each(data.data.children, function (i, value) {
+    let _title = value.data.title;
+    let _perm = "https://www.reddit.com" + value.data.permalink;
+    let _source = value.data.url;
+    let htmlBlock = `<div id="demoObject"><p class="demoFont"><b>${_title}</b></p>
+    <br>
+    <p class="demoFont2">Reddit discussion: <a href="${_perm}">${_perm}</a></p>
+    <br>
+    <p class="demoFont2">Source: <a href="${_source}">${_source}</a></p>
+    </div> <br>`;
+    $("#reddits").append(htmlBlock);
+  });
+}

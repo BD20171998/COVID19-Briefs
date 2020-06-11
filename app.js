@@ -40,6 +40,17 @@ app.get("/reddit", (req, res) => {
   });
 });
 
+app.post("/reddit-submit", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  let q = req.body.query;
+
+  exports.q = q;
+});
+
 app.get("/newsapi", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -47,7 +58,6 @@ app.get("/newsapi", (req, res) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   NewsAPICall.NewsAPI(function (response) {
-    console.log(response);
     res.write(JSON.stringify(response));
     res.end();
   });

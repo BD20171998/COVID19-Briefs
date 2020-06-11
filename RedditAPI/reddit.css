@@ -1,0 +1,56 @@
+.header {
+  padding: 10px 16px;
+  background: gold;
+  color: blue;
+  position: fixed;
+  width: 100%;
+}
+
+/* https://html-css-js.com/css/generator/box-shadow/ */
+/* https://css-tricks.com/almanac/properties/o/overflow-wrap/ */
+p.demoFont {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.demoFont2 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+#demoObject {
+  width: 600px;
+  padding: 30px;
+  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 0px 2px rgba(77, 11, 255, 0.46);
+  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 0px 2px rgba(77, 11, 255, 0.46);
+  background: #4da6ff;
+}
+
+body#tinymce {
+  background: #ffffff;
+}

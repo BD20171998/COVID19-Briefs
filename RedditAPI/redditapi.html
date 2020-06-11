@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="rt.js"></script>
-	<head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="rt.js"></script>
+<link rel="stylesheet" href="reddit.css" />
+
+<head>
 </head>
+
+
 <body>
-	<h1>REDDIT</h1>
-	<ul id="results"></ul>
+
+	<div class="header" id="myHeader">
+		Search for COVID19 related Reddits
+		<div id="button"></div>
+		<input id="query" value='' type="text" /><button id="search-button">Search</button>
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<ul id="reddits">
+	</ul>
+
+
+
+	<h2>Reddit - COVID19 news feed</h2>
+
+	<script src='https://redditjs.com/subreddit.js' data-subreddit='COVID19' data-height='500' data-width='500'
+		data-sort='top' data-theme='light' data-timeframe='month' data-subreddit-mode='grid'></script>
 </body>
