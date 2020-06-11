@@ -1,11 +1,12 @@
 const express = require("express");
 const axios = require("axios");
+
 const TwitterAPICall = require("./Twitter/twitter");
 const YouTubeAPICall = require("./YouTube/youtube");
 const RedditAPICall = require("./RedditAPI/redditapi");
 const NewsAPICall = require("./NewsAPI/newsapi");
 const StatsAPICall = require("./Covid19stats/stats");
-//const http = require("http");
+
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -14,7 +15,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//Testing output on http://localhost:5501/youtube
 app.get("/youtube", (req, res) => {
   //See https://stackoverflow.com/questions/47523265/jquery-ajax-no-access-control-allow-origin-header-is-present-on-the-requested
   res.header("Access-Control-Allow-Origin", "*");
@@ -23,8 +23,8 @@ app.get("/youtube", (req, res) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
 
-  YouTubeAPICall.YouTubeAPI(function (response) {
-    res.write(JSON.stringify(response));
+  YouTubeAPICall.YouTubeAPI((response) => {
+    res.send(JSON.stringify(response));
   });
 });
 
@@ -34,6 +34,7 @@ app.get("/reddit", (req, res) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
+
   RedditAPICall.RedditAPI(function (response) {
     res.send(JSON.stringify(response));
   });
@@ -77,17 +78,16 @@ app.get("/stats", (req, res) => {
   });
 });
 
-//runs fine on 5501 but other GET does not run then
-// app.post("/youtube-submit", (req, res) => {
-//   let q = req.body.myquery;
-//   console.log("POST ran");
-//https://stackoverflow.com/questions/3922994/share-variables-between-files-in-node-js
-// exports.q = q;
+app.post("/youtube-submit", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  let q = req.body.query;
 
-//res.send('You sent the name "' + q + '".');
-// res.end();
-//res.redirect("http://localhost:5502/youtube.html");
-// });
+  exports.q = q;
+});
 
 app.listen(5501, () => {
   console.log("Server app now running on port 5501");

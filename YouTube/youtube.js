@@ -1,6 +1,7 @@
 const { JSDOM } = require("jsdom");
 const { window } = new JSDOM("");
 const $ = require("jquery")(window);
+const query = require("../app");
 
 const YouTubeCall = (YouTubeData) => {
   $.ajax({
@@ -8,9 +9,9 @@ const YouTubeCall = (YouTubeData) => {
     url: "https://www.googleapis.com/youtube/v3/search",
     data: {
       key: "",
-      q: "covid19",
+      q: "covid19" + " " + query.q,
       part: "snippet",
-      maxResults: 5,
+      maxResults: 15,
       type: "video",
       videoEmbeddable: true,
     },
@@ -18,7 +19,7 @@ const YouTubeCall = (YouTubeData) => {
       return YouTubeData(data);
     },
     error: function (response) {
-      return YouTubeData(err);
+      return YouTubeData(response);
     },
   });
 };

@@ -1,6 +1,15 @@
 $(document).ready(() => {
   $("#search-button").click(() => {
     $(".videoWrapper").remove();
+
+    $.ajax({
+      url: "http://localhost:5501/youtube-submit",
+      type: "POST",
+      dataType: "json",
+      data: { query: document.querySelector("#query").value },
+      success: () => {},
+    });
+
     $.ajax({
       url: "http://localhost:5501/youtube",
       type: "GET",
@@ -24,7 +33,7 @@ function addVideo(value) {
   VidTitle = value.snippet.title;
   return `
   <div class="videoWrapper">
-  <h5>${VidTitle}</h3>
+  <h3>${VidTitle}</h3>
   <iframe width="560" height="349" src="${srcVid}"></iframe>
   </div>
   `;
