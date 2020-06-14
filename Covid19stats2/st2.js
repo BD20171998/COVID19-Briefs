@@ -20,6 +20,8 @@ $(document).ready(() => {
   });
 
   $("#submit-button").click(() => {
+    $(".chart").append(`<canvas id="myChart"></canvas>`);
+
     $.ajax({
       url: "http://localhost:5501/stats2-submit",
       type: "POST",
@@ -66,7 +68,7 @@ $(document).ready(() => {
           " Cumulative: " +
           response[0].Status +
           " (by date)";
-        //console.log(response);
+
         BuildChart(Values, labels, chartTitle, response, backColor);
       },
     });

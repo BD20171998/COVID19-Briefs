@@ -6,19 +6,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <!-- https://css-tricks.com/the-many-ways-of-getting-data-into-charts/ -->
-<!-- <script>
-    function myFunction() {
+<script>
+    function myFunction2() {
 
         $("#countryName").attr("value", '');
         $("#countryName").attr("class", '');
-        //$('#start').datepicker('setDate', null);
-        // $('#end').datepicker('setDate', null);
+        $('#start').datepicker('setDate', '');
+        $('#end').datepicker('setDate', '');
 
         $("#confirmed").prop("checked", false);
         $("#recovered").prop("checked", false);
         $("#deaths").prop("checked", false);
+        $("#myChart").remove();
     }
-</script> -->
+</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -65,11 +66,11 @@
             <label for="deaths">Deaths</label><br><br>
 
             <button id="submit-button">Submit</button>
-            <!-- <input type="button" onclick="myFunction()" value="Reset form"> -->
+            <input type="button" onclick="myFunction2()" value="Reset form">
             <br>
             <br>
             <div class="chart" style="position: relative; height:280vh; width:100vw">
-                <canvas id="myChart"></canvas>
+
             </div>
 
 
