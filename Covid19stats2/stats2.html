@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="st2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<!-- https://css-tricks.com/the-many-ways-of-getting-data-into-charts/ -->
+<!-- <script>
+    function myFunction() {
+
+        $("#countryName").attr("value", '');
+        $("#countryName").attr("class", '');
+        //$('#start').datepicker('setDate', null);
+        // $('#end').datepicker('setDate', null);
+
+        $("#confirmed").prop("checked", false);
+        $("#recovered").prop("checked", false);
+        $("#deaths").prop("checked", false);
+    }
+</script> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>COVID19 Cumulative Summary Stats by Country By Date and Type</title>
+
+<link rel="stylesheet" href="stats2.css" />
+
+<body>
+    <h2>Search Menu</h2>
+
+
+    <div class="row">
+        <div class="left" style="background-color:#bbb;">
+            <h2>Menu</h2>
+            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+
+            <ul id="myMenu"></ul>
+        </div>
+
+        <div class="right" style="background-color:whitesmoke;">
+            <h2>Cumulative Summary Stats by Country, Date and Type</h2>
+            <p>Begin typing for a specific country inside the search bar and click on country name from the list.
+                <br> Choose time period to examine and cumulative data to examine: confirmed cases, recovered, or number
+                of deaths</p>
+            <br>
+            <p>API cortesy of <a href="https://covid19api.com">COVID19API.com</a>. Data is sourced from
+                <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>
+                Creator/maintainer of http://covid19api.com - <a href="https://twitter.com/ksredelinghuys">Kyle
+                    Redelinghuys</a></p>
+
+            <label for="start">Start date (must be no earlier than Jan. 22 2020): </label>
+            <input type="date" id="start" /><br>
+            <label for="end">End date (must be no later than today's date): </label>
+            <input type="date" id="end" /><br><br>
+
+            <label for="countryName">Country: </label><br><br>
+            <input disabled="disabled" class="" type="text" id="countryName" name="cname" value=""><br>
+
+            <input type="radio" id="confirmed" name="caseType" value="confirmed">
+            <label for="confirmed">Confirmed cases</label><br>
+            <input type="radio" id="recovered" name="caseType" value="recovered">
+            <label for="recovered">Recovered cases</label><br>
+            <input type="radio" id="deaths" name="caseType" value="deaths">
+            <label for="deaths">Deaths</label><br><br>
+
+            <button id="submit-button">Submit</button>
+            <!-- <input type="button" onclick="myFunction()" value="Reset form"> -->
+            <br>
+            <br>
+            <div class="chart" style="position: relative; height:280vh; width:100vw">
+                <canvas id="myChart"></canvas>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</body>
+
+
+
+</html>

@@ -6,6 +6,7 @@ const YouTubeAPICall = require("./YouTube/youtube");
 const RedditAPICall = require("./RedditAPI/redditapi");
 const NewsAPICall = require("./NewsAPI/newsapi");
 const StatsAPICall = require("./Covid19stats/stats");
+const StatsAPICall2 = require("./Covid19stats2/stats2");
 
 const bodyParser = require("body-parser");
 
@@ -85,6 +86,30 @@ app.get("/stats", (req, res) => {
   StatsAPICall.StatsAPI(function (response) {
     res.write(JSON.stringify(response));
     res.end();
+  });
+});
+
+app.post("/stats2-submit", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
+  let userInputs = req.body;
+
+  exports.stats = userInputs;
+});
+
+app.get("/stats2", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
+  StatsAPICall2.StatsAPI2(function (response) {
+    res.send(JSON.stringify(response));
   });
 });
 
