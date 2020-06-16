@@ -42,7 +42,6 @@ $(document).ready(() => {
       type: "GET",
       dataType: "json",
       success: (response) => {
-        console.log(response[0].Cases);
         let labels = response.map(function (e) {
           return e.Cases;
         });
@@ -65,7 +64,7 @@ $(document).ready(() => {
         }
         chartTitle =
           response[0].Country +
-          " Cumulative: " +
+          ": Cumulative " +
           response[0].Status +
           " (by date)";
 
@@ -117,28 +116,41 @@ function BuildChart(labels, values, chartTitle, allData, backColor) {
 }
 
 $(function () {
-  let fullDate = new Date();
+  var today = new Date();
+  var yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
   $("#start").datepicker({
     dateFormat: "yy-mm-dd",
+
     minDate: "2020-01-20",
-    maxDate: fullDate,
+    maxDate: yesterday,
     onSelect: function (date) {
       var selectedDate = new Date(date);
-      var msecsInADay = 86400000;
-      var endDate = new Date(selectedDate.getTime() + msecsInADay);
-      //https://stackoverflow.com/questions/4419804/restrict-date-in-jquery-datepicker-based-on-another-datepicker-or-textbox
-      //Set Minimum Date of EndDatePicker After Selected Date of StartDatePicker
-      $("#end").datepicker("option", "minDate", endDate);
-      $("#end").datepicker("option", "maxDate", fullDate);
+
+      if (selectedDate === yesterday) {
+        $("#end").datepicker("option", "minDate", selectedDate);
+        $("#end").datepicker("option", "maxDate", selectedDate);
+      } else {
+        var msecsInADay = 86400000;
+        var endDate = new Date(selectedDate.getTime() + msecsInADay);
+        //https://stackoverflow.com/questions/4419804/restrict-date-in-jquery-datepicker-based-on-another-datepicker-or-textbox
+        //Set Minimum Date of EndDatePicker After Selected Date of StartDatePicker
+        $("#end").datepicker("option", "minDate", endDate);
+        $("#end").datepicker("option", "maxDate", yesterday);
+      }
     },
   });
 });
 $(function () {
-  let fullDate = new Date();
-  //let startdate = $("#start").datepicker({ dateFormat: "dd-mm-yy" }).val();
+  var today = new Date();
+  var yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
 
   $("#end").datepicker({
     dateFormat: "yy-mm-dd",
+    minDate: "2020-01-20",
+    maxDate: yesterday,
   });
 });
 
